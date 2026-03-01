@@ -10,7 +10,7 @@
     5000,
     5433
   ],
-  "postCreateCommand": "python -m venv mlops-util-env && . mlops-util-env/bin/activate && pip install --upgrade pip && chmod +x scripts/start-services.sh scripts/stop-services.sh",
+  "postCreateCommand": "curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /usr/share/keyrings/yarnkey.gpg > /dev/null && echo 'deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian/ stable main' | tee /etc/apt/sources.list.d/yarn.list && python -m venv mlops-util-env && . mlops-util-env/bin/activate && pip install --upgrade pip && chmod +x scripts/start-services.sh scripts/stop-services.sh",
   "postStartCommand": "bash scripts/start-services.sh",
   "customizations": {
     "vscode": {
