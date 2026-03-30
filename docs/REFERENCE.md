@@ -1,12 +1,6 @@
-# 📌 Referência Rápida — Comandos Essenciais
+# Referência Rápida — Comandos Essenciais
 
-Comandos úteis para trabalhar com o ambiente híbrido MLOps.
-
----
-
-## 🐳 Docker (VS Code do Codespace)
-
-### Status e Logs
+## Status e Logs
 
 ```bash
 # Ver status de todos os containers
@@ -25,7 +19,7 @@ docker compose logs -f minio
 docker logs NOME_DO_CONTAINER
 ```
 
-### Gerenciar Serviços
+## Gerenciar Serviços
 
 ```bash
 # Iniciar todos os serviços
@@ -46,28 +40,18 @@ docker compose up -d --build
 docker compose down -v
 ```
 
-### Diagnosticar Problemas
+## Diagnosticar Problemas
 
 ```bash
-# Ver detalhes de um container
-docker inspect NOME_DO_CONTAINER
-
 # Entrar em um container
 docker exec -it mlops-mlflow-server-1 bash
-
-# Ver uso de recursos
-docker stats
 ```
 
----
-
-## 🐍 Conda (Terminal Local)
-
-### Gerenciar Ambientes
+## Gerenciar Ambientes
 
 ```bash
 # Criar ambiente
-conda create -n mlops-util-env python=3.13
+conda create -n mlops-util-env python=3.11
 
 # Ativar ambiente
 conda activate mlops-util-env
@@ -80,15 +64,9 @@ conda env list
 
 # Remover ambiente
 conda env remove -n mlops-util-env
-
-# Exportar ambiente
-conda env export > environment.yml
-
-# Criar ambiente a partir de arquivo
-conda env create -f environment.yml
 ```
 
-### Gerenciar Pacotes
+## Gerenciar Pacotes
 
 ```bash
 # Instalar pacotes do arquivo
@@ -96,67 +74,17 @@ conda install -c conda-forge --file requirements_conda.txt
 
 # Instalar pacote específico
 conda install -c conda-forge NOME_DO_PACOTE
-
-# Atualizar pacote
-conda update NOME_DO_PACOTE
-
-# Remover pacote
-conda remove NOME_DO_PACOTE
-
-# Listar pacotes instalados
-conda list
-
-# Buscar pacote
-conda search NOME_DO_PACOTE
 ```
 
----
+## MLFlow
 
-## 📓 Jupyter (Terminal Local)
-
-### Kernels
-
-```bash
-# Listar kernels disponíveis
-jupyter kernelspec list
-
-# Instalar kernel do ambiente atual
-python -m ipykernel install --user --name mlops-util-env --display-name "Python 3.13 (mlops-util-env)"
-
-# Remover kernel
-jupyter kernelspec uninstall mlops-util-env
-
-# Ver onde o kernel está instalado
-jupyter kernelspec list
-```
-
-### Jupyter Lab
-
-```bash
-# Iniciar Jupyter Lab
-jupyter lab
-
-# Iniciar em porta específica
-jupyter lab --port 8889
-
-# Iniciar sem abrir navegador
-jupyter lab --no-browser
-
-# Ver versão
-jupyter lab --version
-```
-
----
-
-## 🌐 MLflow (Python)
-
-### Configuração Básica
+### Configuração Básica do MLFlow
 
 ```python
 import mlflow
 
 # Configurar URI do servidor
-mlflow.set_tracking_uri('http://localhost:5000')
+mlflow.set_tracking_uri('http://localhost:5010')
 
 # Verificar URI configurada
 print(mlflow.get_tracking_uri())
@@ -212,7 +140,7 @@ for run in runs:
 
 ---
 
-## 📡 Git (Terminal Local)
+## Git (Terminal Local)
 
 ### Operações Básicas
 
@@ -262,56 +190,13 @@ git branch -d feature/nova-funcionalidade
 
 ---
 
-## 🔗 Codespaces (VS Code)
-
-### Conectar/Desconectar
-
-```
-# Conectar
-Ctrl+Shift+P → "Codespaces: Connect to Codespace"
-
-# Desconectar
-Ctrl+Shift+P → "Close Remote Connection"
-
-# Recarregar janela
-Ctrl+Shift+P → "Developer: Reload Window"
-```
-
-### Port Forwarding
-
-```
-# Ver portas
-View → Ports
-
-# Adicionar porta
-PORTS → Forward a Port → Digite o número
-
-# Mudar visibilidade
-Clique direito na porta → Port Visibility → Public/Private
-
-# Abrir no navegador
-Clique no ícone de globo ao lado da porta
-```
-
-### Gerenciar Codespace
-
-No GitHub (https://github.com/codespaces):
-
-- **Stop** - Parar Codespace (libera recursos)
-- **Start** - Reiniciar Codespace parado
-- **Delete** - Remover Codespace permanentemente
-- **Rename** - Renomear Codespace
-- **Export** - Exportar dados do Codespace
-
----
-
-## 🌐 Acessar Serviços
+## Acessar Serviços
 
 ### URLs
 
 | Serviço | URL | Credenciais |
 |---------|-----|-------------|
-| MLflow UI | http://localhost:5000 | - |
+| MLflow UI | http://localhost:5010 | - |
 | MinIO Console | http://localhost:9001 | user / password |
 | Postgres (MLflow) | localhost:5433 | user / password |
 | Postgres (MLOps) | localhost:5434 | mlops_user / admin |
@@ -320,7 +205,7 @@ No GitHub (https://github.com/codespaces):
 
 ```bash
 # Testar MLflow
-curl http://localhost:5000/health
+curl http://localhost:5010/health
 
 # Testar MinIO
 curl http://localhost:9001
@@ -332,10 +217,6 @@ psql -h localhost -p 5433 -U user -d db
 psql -h localhost -p 5434 -U mlops_user -d mlops_db
 ```
 
----
-
-## 🐛 Troubleshooting Rápido
-
 ### MLflow não abre
 
 ```bash
@@ -343,38 +224,3 @@ docker compose restart mlflow-server
 docker compose logs mlflow-server
 ```
 
-### Porta não funciona
-
-```
-VS Code Codespace → PORTS → Forward Port → 5000
-```
-
-### Conda lento
-
-```bash
-# Usar mamba (mais rápido)
-conda install -c conda-forge mamba
-mamba install -c conda-forge --file requirements_conda.txt
-```
-
-### Kernel não aparece
-
-```bash
-conda activate mlops-util-env
-python -m ipykernel install --user --name mlops-util-env
-jupyter kernelspec list
-```
-
----
-
-## 💡 Dicas
-
-- ✅ Sempre ative o ambiente Conda antes de trabalhar
-- ✅ Use `docker compose logs -f` para ver problemas em tempo real
-- ✅ Pare o Codespace quando não estiver usando
-- ✅ Faça commits frequentes para não perder trabalho
-- ✅ Use dois terminais: um para Codespace, outro para local
-
----
-
-📖 [README Principal](../README.md) | 🚀 [Guia Rápido](./QUICKSTART.md) | ✅ [Checklist](./CHECKLIST.md)

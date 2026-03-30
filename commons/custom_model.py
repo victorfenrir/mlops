@@ -37,8 +37,8 @@ class CustomModel(mlflow.pyfunc.PythonModel):
         app_config.read(app_config_path)
         return app_config
         
-    def predict(self, context, model_input: Dict[str, Any]) -> Dict[str, Any]:
-       
+    def predict(self, context, model_input):
+
         if 'method' not in model_input:
             raise ValueError("Input must contain a 'method' key to specify the operation")
 
@@ -59,6 +59,7 @@ class CustomModel(mlflow.pyfunc.PythonModel):
                 'model_uri': model_uri
             }
             
+        
         else:
             raise ValueError(f"Unknown method: {method}")
     
