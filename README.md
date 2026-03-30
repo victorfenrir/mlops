@@ -6,6 +6,7 @@
 2. VS Code instalado ([baixar](https://code.visualstudio.com/))
 3. Anaconda ou Miniconda instalado ([baixar](https://docs.conda.io/en/latest/miniconda.html))
 4. Git instalado
+5. Docker Desktop ([baixar](https://www.docker.com/products/docker-desktop/))
 
 ## Fazer Fork e Clonar o Repositório
 
@@ -66,5 +67,8 @@
   ```bash
   docker compose down
   ```
+- [Arquivo de referência (comandos úteis)](docs/REFERENCE.md)
 
 Pronto! Agora você pode trabalhar localmente com MLflow, MinIO, Postgres e Jupyter Lab.
+
+---
