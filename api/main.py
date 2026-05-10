@@ -10,6 +10,7 @@ load_dotenv()
 import configparser
 
 from fastapi import FastAPI
+from fastapi import Path
 from src.delivery_region_mlflow import DeliveryRegion
 import mlflow
 
@@ -46,7 +47,10 @@ async def mlops():
 
 @app.get("/get-delivery-region/{lat}/{lng}", summary="Valida região de entrega")
 @mlflow.trace(name="predict_delivery_region", span_type="CHAIN")
-def get_delivery_region(lat, lng):
+def get_delivery_region(
+    lat: float = Path(..., example=-15.913988770795076, description="Latitude"),
+    lng: float = Path(..., example=-47.60220527168726, description="Longitude"),
+):
     
     with mlflow.start_span(name="load_model") as span:
         span.set_inputs({"model": clustering_model_name, "alias": clustering_alias})

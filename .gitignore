@@ -59,3 +59,4 @@ faiss_index/
 # Project
 temp/
 train/logs/app.log
+scripts/correcao_exercicio.py
